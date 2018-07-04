@@ -52,13 +52,14 @@ namespace subnet {
   }
 
   std::uint32_t toValue(const std::string& ip) {
-    std::uint32_t ret = 0;
+    std::uint32_t ret = UINT32_MAX;
     std::string ipstr = ip;
 
     std::string token;
     std::istringstream iss(ipstr);
     auto pot = 24;
     while(getline(iss, token, '.')) {
+      ret = ret == UINT32_MAX ? 0 : ret;
       std::uint32_t val = std::stoi(token);
       val = val << pot;
       ret |= val;
@@ -67,6 +68,7 @@ namespace subnet {
 
     return ret;
   }
+
 };
 
 #endif
