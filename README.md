@@ -2,15 +2,9 @@
 ------
 Very simple cli based subnet calculator
 
-### Build All / Release / Debug
+### Build
 ```
 make
-```
-```
-make release
-```
-```
-make debug
 ```
 ### Install
 ```
@@ -20,7 +14,13 @@ make install
 ```
 make uninstall
 ```
-### Clean
+------
+### Usage
+**Example: calculate 3 subnets on a specific ip**
 ```
-make clean
+subcalc -ip 192.168.0.1 -n 3
+```
+**Help**
+```
+subcalc -h
 ```
