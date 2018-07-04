@@ -60,12 +60,12 @@ int main(int argc, char **argv) {
   }
 
   if(help) {
-    std::cout<<"subcalc[OPTION][ARG]..."<<std::endl;
-    std::cout<<"OPTIONS:"<<std::endl;
-    std::cout<<"\t -n\t[subnet count]"<<std::endl;
-    std::cout<<"\t -ip\t[ip address]"<<std::endl;
-    std::cout<<"\t -h\tshow help"<<std::endl;
-    std::cout<<"\t -m\t[mask <i>]"<<std::endl;
+    std::cout<<"usage: subcalc [-h] [-ip {ipaddr}] [-n {count}] [-m {mask}]"<<std::endl<<std::endl;
+    std::cout<<"Very simple subnet calculator"<<std::endl;
+    std::cout<<"  -h\tShow this help message and exit"<<std::endl;
+    std::cout<<"  -n\tSet quantity of subnets count[10]"<<std::endl;
+    std::cout<<"  -ip\tSet ip address of host network ipaddr[127.0.0.1]"<<std::endl;
+    std::cout<<"  -m\t[Set subnet mask of host network mask[255.255.255.0] "<<std::endl;
     return 0;
   }
 
