@@ -32,3 +32,6 @@
 *.app
 *_debug
 *_amd64
+
+# Folders
+bin/
