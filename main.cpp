@@ -28,7 +28,7 @@ SOFTWARE.
 #include <algorithm>
 #include <cstring>
 
-void printNetwork(const std::vector<subnet::ValueNetwork>& vec);
+void printNetwork(const std::vector<subnet::Network>& vec);
 
 int main(int argc, char **argv) {
   size_t netcount = 1;
@@ -112,17 +112,17 @@ int main(int argc, char **argv) {
   }
 
 
-  std::vector<subnet::ValueNetwork> vec;
+  std::vector<subnet::Network> vec;
   std::sort(maxhost_in_sub.rbegin(), maxhost_in_sub.rend());
   bool first = true;
-  subnet::ValueNetwork r;
+  subnet::Network r;
   for(auto e : maxhost_in_sub) {
     if(first) {
-      r = subnet::calculateVal(subnet::toValue(ipstr), e);
+      r = subnet::calculate(subnet::toValue(ipstr), e);
       first = false;
     }
     else
-      r = subnet::calculateVal(r.BroadcastAddr + 1, e);
+      r = subnet::calculate(r.BroadcastAddr + 1, e);
 
     vec.push_back(r);
   }
@@ -137,7 +137,7 @@ template<typename T> void printElement(T t, const int& width) {
   std::cout << "| "<< std::left << std::setw(width) << std::setfill(' ') << t;
 }
 
-void printNetwork(const std::vector<subnet::ValueNetwork>& vec) {
+void printNetwork(const std::vector<subnet::Network>& vec) {
   const int fillw = 100;
   std::cout<<"+";
   std::cout<< std::left << std::setw(fillw) << std::setfill('-') << "";

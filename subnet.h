@@ -30,7 +30,7 @@ SOFTWARE.
 #include <string>
 
 namespace subnet {
-  struct ValueNetwork {
+  struct Network {
     std::uint32_t NetId;
     std::uint32_t FirstAddr;
     std::uint32_t LastAddr;
@@ -47,8 +47,8 @@ namespace subnet {
     return ~(b & (a - 1));
   }
 
-  ValueNetwork calculateVal(const std::uint32_t& ip, size_t hosts) {
-    ValueNetwork net;
+  Network calculate(const std::uint32_t& ip, size_t hosts) {
+    Network net;
     auto mask = calcMask(hosts);
     auto addr = ip & mask;
     auto hostBits = std::ceil(std::log2(hosts + 2));
