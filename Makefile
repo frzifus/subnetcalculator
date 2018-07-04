@@ -35,6 +35,6 @@ clean:
 	@echo success
 
 uninstall:
-	@echo Uninstall subcalc...
+	@echo Uninstalling subcalc...
 	rm -rf /usr/bin/$(TITLE)
 	@echo success
