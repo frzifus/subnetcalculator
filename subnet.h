@@ -10,8 +10,10 @@ namespace subnet {
   struct ValueNetwork {
     std::uint32_t NetId;
     std::uint32_t FirstAddr;
+    std::uint32_t LastAddr;
     std::uint32_t BroadcastAddr;
     std::uint32_t Mask;
+    int ShortMask;
     size_t MaxHosts;
   };
 
@@ -26,13 +28,16 @@ namespace subnet {
     ValueNetwork net;
     auto mask = calcMask(hosts);
     auto addr = ip & mask;
+    auto hostBits = std::ceil(std::log2(hosts + 2));
 
     net.NetId = addr;
     net.FirstAddr = addr + 1;
     net.BroadcastAddr = ((ip & mask) +
-                         static_cast<uint32_t>(std::pow(2, std::ceil(std::log2(hosts + 2))))) - 1;
+                         static_cast<uint32_t>(std::pow(2, hostBits))) - 1;
+    net.LastAddr = net.BroadcastAddr - 1;
     net.Mask = mask;
-    net.MaxHosts = std::pow(2, std::ceil(std::log2(hosts))) - 2;
+    net.MaxHosts = std::pow(2, hostBits) - 2;
+    net.ShortMask = 32 - hostBits;
 
     return net;
   }

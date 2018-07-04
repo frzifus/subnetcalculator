@@ -11,30 +11,33 @@ template<typename T> void printElement(T t, const int& width) {
 }
 
 void printNet(const std::vector<subnet::ValueNetwork>& vec) {
+  const int fillw = 100;
   std::cout<<"+";
-  std::cout<< std::left << std::setw(84) << std::setfill('-') << "";
+  std::cout<< std::left << std::setw(fillw) << std::setfill('-') << "";
   std::cout<<"+"<<std::endl;
-  printElement("NetID", 15);
+  printElement("NetID", 18);
   printElement("FirstAddr", 15);
+  printElement("LastAddr", 15);
   printElement("Broadcast", 15);
   printElement("NetMask", 15);
-  printElement("MaxHosts", 15);
+  printElement("MaxHosts", 11);
   std::cout<<"|"<<std::endl;
   std::cout<<"+";
-  std::cout<< std::left << std::setw(84) << std::setfill('-') << "";
+  std::cout<< std::left << std::setw(fillw) << std::setfill('-') << "";
   std::cout<<"+"<<std::endl;
 
   for(const auto& rn : vec) {
-    printElement(subnet::toIP(rn.NetId), 15);
+    printElement(subnet::toIP(rn.NetId) + "/" + std::to_string(rn.ShortMask), 18);
     printElement(subnet::toIP(rn.FirstAddr), 15);
+    printElement(subnet::toIP(rn.LastAddr), 15);
     printElement(subnet::toIP(rn.BroadcastAddr), 15);
     printElement(subnet::toIP(rn.Mask), 15);
-    printElement(rn.MaxHosts, 15);
-    std::cout<<"|"<<std::endl;
+    std::cout << "| "<< std::right << std::setw(10) << std::setfill(' ') << rn.MaxHosts;
+    std::cout<<" |"<<std::endl;
   }
 
   std::cout<<"+";
-  std::cout<< std::left << std::setw(84) << std::setfill('-') << "";
+  std::cout<< std::left << std::setw(fillw) << std::setfill('-') << "";
   std::cout<<"+"<<std::endl;
 
 }
@@ -43,6 +46,9 @@ int main(int argc, char **argv) {
   long int netcount = 1;
   bool help = false;
   std::string ipstr;
+
+  if(argc == 1)
+    help = true;
 
   for(int i = 1; i < argc; ++i) {
     if(std::strcmp("-n", argv[i]) == 0)
