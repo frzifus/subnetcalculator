@@ -2,19 +2,39 @@ VERSION=0.1
 CC=g++
 SRC=main.cpp subnet.h
 LFLAGS=-Wall
-EXECUTABLE=subcalc
+TITLE=subcalc
+EXECUTABLE=bin/$(TITLE)
 
-.PHONY: all release debug
+.PHONY: all release debug install
 
 all:
-	make release
-	make debug
+	@make release
+	@make debug
 
 release:
-	$(CC) $(LFLAGS) -O3 $(SRC) -o $(EXECUTABLE)_amd64
+	@echo Build release
+	@mkdir -p bin
+	@$(CC) $(LFLAGS) -O3 $(SRC) -o $(EXECUTABLE)
+	@echo success
 
 debug:
-	$(CC) $(LFLAGS) -g $(SRC) -o $(EXECUTABLE)_debug
+	@echo Build debug
+	@mkdir -p bin
+	@$(CC) $(LFLAGS) -g $(SRC) -o $(EXECUTABLE)_debug
+	@echo success
+
+install:
+	@echo Installing subcalc...
+	@make release
+	@cp $(EXECUTABLE) /usr/bin/
+	@echo success
 
 clean:
-	rm -f $(EXECUTABLE)_amd64 $(EXECUTABLE)_debug
+	@echo Cleaning up
+	rm -rf ./bin /usr/bin/$(TITLE)
+	@echo success
+
+uninstall:
+	@echo Uninstall subcalc...
+	rm -rf /usr/bin/$(TITLE)
+	@echo success
