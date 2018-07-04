@@ -142,7 +142,7 @@ void printNetwork(const std::vector<subnet::ValueNetwork>& vec) {
   std::cout<<"+";
   std::cout<< std::left << std::setw(fillw) << std::setfill('-') << "";
   std::cout<<"+"<<std::endl;
-  printElement("NetID", 18);
+  printElement("NetID/Mask", 18);
   printElement("FirstAddr", 15);
   printElement("LastAddr", 15);
   printElement("Broadcast", 15);
