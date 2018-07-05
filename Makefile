@@ -7,9 +7,7 @@ EXECUTABLE=bin/$(TITLE)
 
 .PHONY: all release debug install
 
-all:
-	@make release
-	@make debug
+all: release debug
 
 release:
 	@echo Build release
