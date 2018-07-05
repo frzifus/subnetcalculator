@@ -28,7 +28,6 @@ SOFTWARE.
 #include <bitset>
 #include <sstream>
 #include <string>
-#include <iostream>
 
 namespace subnet {
 struct Network {
