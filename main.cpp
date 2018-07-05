@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
   size_t netcount = 1;
   bool help = false;
   bool err = false;
-  std::string ipstr;
+  std::string ipstr, mask;
 
   if(argc == 1)
     help = true;
@@ -82,6 +82,28 @@ int main(int argc, char **argv) {
         break;
       }
     }
+
+    if(std::strcmp("-m", argv[i]) == 0) {
+      if(argc <= i + 1) {
+        err = true;
+        break;
+      }
+
+      mask = argv[i + 1];
+
+      try {
+        auto test = subnet::toValue(mask);
+
+        if(test == UINT32_MAX) {
+          err = true;
+          break;
+        }
+
+      } catch(std::invalid_argument& c) {
+        err = true;
+        break;
+      }
+    }
   }
 
   if(err) {
@@ -90,11 +112,12 @@ int main(int argc, char **argv) {
   }
 
   if(help) {
-    std::cout<<"usage: subcalc [-h] [-ip {ipaddr}] [-n {count}]"<<std::endl<<std::endl;
+    std::cout<<"usage: subcalc [-h] [-ip {ipaddr}] [-n {count}] [-m {mask}]"<<std::endl<<std::endl;
     std::cout<<"Very simple subnet calculator"<<std::endl;
     std::cout<<"  -h\tShow this help message and exit"<<std::endl;
     std::cout<<"  -n\tSet quantity of subnets count[10]"<<std::endl;
     std::cout<<"  -ip\tSet ip address of host network ipaddr[127.0.0.1]"<<std::endl;
+    std::cout<<"  -m\tSet subnet mask for host network mask[255.255.255.0]"<<std::endl;
     return 0;
   }
 
@@ -102,6 +125,12 @@ int main(int argc, char **argv) {
     std::cout<<"Missing ip address"<<std::endl;
     return 0;
   }
+
+  if(mask != "")  {
+    ipstr = subnet::toIP(subnet::mask(subnet::toValue(ipstr), subnet::toValue(mask)));
+    std::cout<<ipstr<<std::endl;
+  }
+
 
   std::vector<size_t> maxhost_in_sub;
   for(size_t i = 0; i < netcount; ++i) {

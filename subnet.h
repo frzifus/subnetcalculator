@@ -65,6 +65,10 @@ namespace subnet {
     return net;
   }
 
+  std::uint32_t mask (const std::uint32_t& ipaddr, const std::uint32_t& mask) {
+    return ipaddr & mask;
+  }
+
   std::string toIP(std::uint32_t addr) {
     std::string str;
     str += std::to_string(addr >> 24) + ".";
