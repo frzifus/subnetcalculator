@@ -28,6 +28,7 @@ SOFTWARE.
 #include <bitset>
 #include <sstream>
 #include <string>
+#include <iostream>
 
 namespace subnet {
 struct Network {
@@ -101,6 +102,10 @@ std::uint32_t toValue(const std::string& ip) {
   }
 
   return count == 4 ? ret : UINT32_MAX;
+}
+
+bool validSubnet(const std::uint32_t& mask, size_t netcount) {
+  return ~mask + 1 >= netcount + (2 * netcount);
 }
 
 };  // namespace subnet

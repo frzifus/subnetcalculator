@@ -107,7 +107,7 @@ int main(int argc, char** argv) {
 
   if (err) {
     std::cout << "Invalid input" << std::endl;
-    return 0;
+    return EXIT_FAILURE;
   }
 
   if (help) {
@@ -121,15 +121,21 @@ int main(int argc, char** argv) {
               << std::endl;
     std::cout << "  -m\tSet subnet mask for host network {mask}[255.255.255.0]"
               << std::endl;
-    return 0;
+    return EXIT_SUCCESS;
   }
 
   if (ipstr == "") {
     std::cout << "Missing ip address" << std::endl;
-    return 0;
+    return EXIT_FAILURE;
   }
 
   if (mask != "") {
+    auto maskval = subnet::toValue(mask);
+    if(!subnet::validSubnet(maskval, netcount)) {
+      std::cout<<"Invalid net count for given mask"<<std::endl;
+      return EXIT_FAILURE;
+    }
+
     ipstr = subnet::toIP(
         subnet::mask(subnet::toValue(ipstr), subnet::toValue(mask)));
     std::cout << ipstr << std::endl;
@@ -159,7 +165,8 @@ int main(int argc, char** argv) {
 
   printNetwork(vec);
 
-  return 0;
+
+  return EXIT_SUCCESS;
 }
 
 template <typename T>
