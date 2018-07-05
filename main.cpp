@@ -131,8 +131,8 @@ int main(int argc, char** argv) {
 
   if (mask != "") {
     auto maskval = subnet::toValue(mask);
-    if(!subnet::validSubnet(maskval, netcount)) {
-      std::cout<<"Invalid net count for given mask"<<std::endl;
+    if (!subnet::validSubnet(maskval, netcount)) {
+      std::cout << "Invalid net count for given mask" << std::endl;
       return EXIT_FAILURE;
     }
 
@@ -164,7 +164,6 @@ int main(int argc, char** argv) {
   }
 
   printNetwork(vec);
-
 
   return EXIT_SUCCESS;
 }

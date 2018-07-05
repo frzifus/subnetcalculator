@@ -90,7 +90,7 @@ std::uint32_t toValue(const std::string& ip) {
     ret = ret == UINT32_MAX ? 0 : ret;
     std::uint32_t val = std::stoi(token);
 
-    if(val > 255 || val < 0) {
+    if (val > 255 || val < 0) {
       ret = UINT32_MAX;
       return ret;
     }
