@@ -100,8 +100,7 @@ std::uint32_t toValue(const std::string& ip) {
     pot -= 8;
   }
 
-  ret = count == 4 ? ret : UINT32_MAX;
-  return ret;
+  return count == 4 ? ret : UINT32_MAX;
 }
 
 };  // namespace subnet
