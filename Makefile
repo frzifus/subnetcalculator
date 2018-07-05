@@ -5,7 +5,7 @@ LFLAGS=-Wall
 TITLE=subcalc
 EXECUTABLE=bin/$(TITLE)
 
-.PHONY: all release debug install
+.PHONY: all release debug install fmt
 
 all: release debug
 
@@ -20,6 +20,9 @@ debug:
 	@mkdir -p bin
 	@$(CC) $(LFLAGS) -g $(SRC) -o $(EXECUTABLE)_debug
 	@echo success
+
+fmt:
+	clang-format -i -style=file *.cpp *.h
 
 install:
 	@echo Installing subcalc...
